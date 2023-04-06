@@ -7,15 +7,16 @@ colar em um arquivo de texto.
 SGBD PostgreSQL.
 
 3. Crie um banco de dados chamado aulapratica02.
-
+```
 create database aulapratica02;
+```
 
 4. Crie todas as tabelas de acordo com o modelo apresentado acima. Não
 esqueça de criar as chaves primárias (PK) e estrangeiras (FK). OBS: A ordem
 de criação é muito importante. Você precisa ter uma tabela criada para
 referenciá-la na chave estrangeira. OBS2: Após a criação das tabelas use o
 comando \dt para verificar se as tabelas foram criadas corretamente.
-
+```
 create table empresa (codigo integer PRIMARY KEY, nome varchar(60), rua varchar(40), cidade varchar(20), estado char(2));
 
 create table empregado(codigo integer primary key, codigo_empresa integer, foreign key(codigo_empresa) references empresa(codigo), codigo_gerente int, foreign key(codigo_gerente) references empregado(codigo), nome varchar(60), rua varchar(20), cidade varchar(20), estado char(2), sexo char(1), salario float);
@@ -23,7 +24,9 @@ create table empregado(codigo integer primary key, codigo_empresa integer, forei
 create table projeto(codigo int primary key, nome varchar(30));
 
 create table trabalha_em(codigo_empregado int primary key, foreign key (codigo_empregado) references empregado(codigo), codigo_projeto int, foreign key (codigo_projeto) references projeto(codigo), horas int);
+```
 
+```
 insert into empresa(codigo, nome, rua, cidade, estado) values (1, 'intel', 'a', 'rio_paranaiba', 'mg');
 
 insert into empresa(codigo, nome, rua, cidade, estado) values (2, 'amd', 'b', 'rio_paranaiba', 'mg');
@@ -53,6 +56,7 @@ insert into trabalha_em(codigo_empregado, codigo_projeto, horas) values (2, 1, 2
 insert into trabalha_em(codigo_empregado, codigo_projeto, horas) values (4, 2, 30);
 
 insert into trabalha_em(codigo_empregado, codigo_projeto, horas) values (6, 3, 35);
+```
 
 6. Crie e execute as seguintes consultas:
 
