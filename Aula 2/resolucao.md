@@ -3,7 +3,7 @@ respostas no PVANetMoodle. O arquivo deverá ter como nome seu número de
 matrícula e a extensão .sql. DICA: Você pode copiar os códigos do terminal e
 colar em um arquivo de texto.
 
-2. Digite psql -U postgres para entrar na interface de linha de comando do
+2. Digite ```psql -U postgres``` para entrar na interface de linha de comando do
 SGBD PostgreSQL.
 
 3. Crie um banco de dados chamado aulapratica02.
@@ -63,20 +63,25 @@ insert into trabalha_em(codigo_empregado, codigo_projeto, horas) values (6, 3, 3
 A. Para cada empregado, recupere o nome, salário e nome da empresa para
 qual trabalha.
 
+```
 select empregado.nome, empregado.salario, empresa.nome from empregado as empregado, empresa as empresa where empregado.codigo_empresa = empresa.codigo;
+```
 
 B. Selecione o salário médio de todos os empregados do sexo feminino da
 empresa <amd>.
-
+```
 select avg(salario) from empregado as f join empresa as e on f.codigo_empresa = e.codigo where sexo = 'F' and e.nome = 'amd';
+```
 
 C. Obter a quantidade de empregados de todas as empresas. O resultado deverá
 ser o nome da empresa e a quantidade de empregados que trabalham nela,
 respectivamente.
-
+```
 select e.nome, count(*) from empregado as f join empresa as e on f.codigo_empresa = e.codigo group by e.nome;
+```
 
 D. Encontre todos os empregados que moram na mesma cidade que seus
 gerentes.
-
+```
 select f.nome from empregado as f join empregado as s on f.codigo_gerente = s.codigo and f.cidade = s.cidade;
+```
