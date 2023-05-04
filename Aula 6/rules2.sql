@@ -20,10 +20,9 @@ UPDATE produto SET estoque = estoque - new.quantidade;
 -- itemdopedido que foi removido. OBS: A mesma ideia da regra anterior, só que
 -- neste caso deve-se somar a quantidade removida do estoque (produto).
 
-CREATE OR REPLACE RULE rl_return_qtd AS
-ON INSERT TO itemdopedido DO
-SELECT estoque FROM produto, itemdopedido
-WHERE produto.codigoproduto = itemdopedido.codigoproduto;
+CREATE OR REPLACE RULE rl_retornar_estoque AS
+ON DELETE TO itemdopedido DO
+UPDATE produto SET estoque = estoque + old.quantidade;
 
 -- 5. Crie uma tabela de log (logvendas) com os seguintes campos:
 -- Coluna Tipo OBS
