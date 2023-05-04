@@ -15,9 +15,9 @@ CREATE DATABASE escola;
 -- tabela abaixo. OBS: não é para criar chave primária.
 
 CREATE TABLE log_funcionario (
-    cpf_func VARCHAR(15)
-    novo_salario REAL
-    usuario VARCHAR(20)
+    cpf_func VARCHAR(15),
+    novo_salario REAL,
+    usuario VARCHAR(20),
     data_hora TIMESTAMP
 );
 
@@ -28,12 +28,14 @@ CREATE TABLE log_funcionario (
 CREATE OR REPLACE RULE rl_log_funcionario AS
 ON UPDATE TO funcionario
 WHERE new.salario <> old.salario DO
-INSERT INTO log_funcionario VALUES (old.cpf, new.salario, current_user, current_date);
+INSERT INTO log_funcionario VALUES (new.cpf, new.salario, current_user, current_timestamp);
 
 -- 5. Atualize a tabela funcionário com um novo salário e verifique se a tabela
 -- log_funcionario foi modificada.
 
 UPDATE funcionario SET salario = 1200 WHERE salario = 1000;
+
+SELECT * FROM log_funcionario;
 
 -- 6. Crie uma regra (rule) na tabela professor_disciplina chamada
 -- “rl_no_delete_profdisc” que não faça nada se o usuário deletar dados na
@@ -42,6 +44,8 @@ UPDATE funcionario SET salario = 1200 WHERE salario = 1000;
 
 CREATE OR REPLACE RULE rl_no_delete_profdisc AS
 ON DELETE TO professor_disciplina DO INSTEAD NOTHING;
+
+SELECT * FROM professor_disciplina;
 
 DELETE FROM professor_disciplina WHERE cpf_func = '0987654321';
 
@@ -67,3 +71,5 @@ INSERT INTO professor_disciplina_auditoria VALUES (old.codigo_disc, old.cpf_func
 -- professor_disciplina_auditoria foi povoada.
 
 DELETE FROM professor_disciplina * ;
+
+SELECT * FROM professor_disciplina_auditoria;
